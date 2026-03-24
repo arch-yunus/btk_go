@@ -1,5 +1,7 @@
 # 🚀 BTK Akademi - Go (Golang) Dili Kursu: Modern Mühendislik Yolculuğu
 
+![Go Course Banner](./banner.png)
+
 Merhaba değerli geliştirici dostum! Bu depo, Türkiye'nin dijital dönüşüm hamlesinin en önemli taşlarından biri olan [BTK Akademi](https://www.btkakademi.gov.tr/portal/course/go-ile-programlamaya-giris-12760) platformu üzerinden başarıyla tamamladığım **"Go ile Programlamaya Giriş"** kursu kapsamında ilmek ilmek işlediğim projeleri, deneysel çalışmaları ve yapısal örnekleri barındıran kapsamlı bir dijital kütüphanedir. "Go neymiş ya?" diye merak ediyorsan, doğru yerdesin. Bu repo; sadeliğin gücünü, hızın zarafetini ve modern sistem programlamanın en sah halini keşfetmek isteyenler için bir başucu kaynağı niteliği taşır.
 
 Bu çalışma; sadece sözdizimi (syntax) öğrenmenin ötesine geçerek, bir dilin felsefesini kavramayı, bellek yönetimini optimize etmeyi ve yüksek performanslı sistemler inşa etmeyi hedefleyen bir disiplinin ürünüdür. İster Go diline yeni başlayan bir meraklı ol, ister "Ben ne yazsam da kendimi geliştirsem?" diyen bir profesyonel; buradaki her satır kod, bir problem-çözüm döngüsünün ve pedagojik bir yaklaşımın sonucudur. Kodları incele, değiştir, boz ve yeniden inşa et; zira gerçek öğrenme ancak "terminalin başında ter dökerek" gerçekleşir.
@@ -126,6 +128,54 @@ func main() {
 
 Tarayıcınızı açıp `http://localhost:8080` adresine gittiğinizde, Go'nun mikrosaniyelik yanıt hızını bizzat deneyimleyeceksiniz.
 
+### ✅ Go'da Hata Yönetimi: "Errors are Values" Felsefesi
+Go, *try-catch* blokları yerine hataları normal birer geri dönüş değeri olarak ele alır. Bu felsefe, hatayı bir istisna (exception) olmaktan çıkarıp kontrol edilebilir, kodun içine yedirilmiş organik bir süreç haline getirir. Ayrıca `defer`, `panic` ve `recover` mekanizmalarıyla beklenmedik çöküşleri (runtime panics) yönetmemizi sağlar.
+
+```go
+func DosyaOkuma(dosyaAdi string) ([]byte, error) {
+	veri, err := os.ReadFile(dosyaAdi)
+	if err != nil {
+		// Hata gizlenmez, açıkça geri döndürülerek çağırıcı uyarılır
+		return nil, fmt.Errorf("kritik: dosya okunamadı -> %w", err)
+	}
+	return veri, nil
+}
+```
+
+### ✅ Modül ve Bağımlılık Yönetimi (Go Modules)
+Go 1.11 ile standartlaşan **Go Modules**, projelerin harici kütüphanelerini merkezi, şeffaf ve versiyon kontrollü bir şekilde yönetmesini sağlar. `go mod init` ile başlayan bu süreç, projenizin kalbine bir `go.mod` dosyası yerleştirerek eski nesil `GOPATH` karmaşasını ortadan kaldırır. `go get github.com/gin-gonic/gin` gibi komutlarla dünyadaki herhangi bir paket anında projenize dahil edilirken, versiyon bütünlüğü `go.sum` ile kriptografik olarak güvence altına alınır.
+
+### ✅ Endüstri Standardı Proje Hiyerarşisi (Project Layout)
+Modern ve "Enterprise" ölçekli bir Go projesinde kodlar rastgele dizinlere atılmaz. "Standard Go Project Layout" organizasyon desenine göre mimari şekillenir:
+- **`cmd/`**: Uygulamanın giriş noktaları (entry points) ve çalıştırılabilir bileşenleri bulundurur. (örn: `cmd/server/main.go`).
+- **`internal/`**: Dış dünyadan (diğer depolardan) import edilmesi yasak olan, sadece projenin kendi bileşenlerine özel gizli iş mantıklarının (business logic) yazıldığı alandır. Güvenlik duvarıdır.
+- **`pkg/`**: Başka projelerin de güvenle import edip kullanabileceği, evrensel ve genel geçer açık kaynak yardımcı kod veya kütüphane dosyalarıdır.
+- **`api/`**: OpenAPI, Swagger sözleşmeleri, gRPC/Protobuf (.proto) tanımlamalarını içerir.
+
+### ✅ Test ve Kalite Güvencesi (Testing & Benchmarks)
+Go dilinde "TDD" (Test-Driven Development) yapmak için harici obez kütüphanelere (örn: Jest, JUnit) bağımlı değilsinizdir. Her kod dosyasının (örn: `math.go`) yanına bir `math_test.go` oluşturarak `testing` kütüphanesiyle kalite hedeflerinize ulaşırsınız. Ayrıca mikrosaniyelik performans ölçümleri için built-in benchmark yeteneği devasa bir şanstır.
+
+```go
+package mymath
+
+import "testing"
+
+func TestTopla(t *testing.T) {
+	sonuc := Topla(2, 3)
+	if sonuc != 5 {
+		t.Errorf("HATA: Beklenen 5, alınan %d", sonuc)
+	}
+}
+
+// CPU bazlı mikro-performans (Benchmark) ölçümü
+func BenchmarkTopla(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Topla(100, 200)
+	}
+}
+```
+Terminalden girilecek tek bir `go test -v -cover ./...` komutuyla tüm test kapsama (coverage) oranınızı saniyeler içinde kanıtlarsınız.
+
 ---
 
 ## 🛠 Kurulum ve Geliştirme Ortamı
@@ -143,6 +193,19 @@ Projenin bir kopyasını yerel makinenizde çalıştırmak ve deneysel eklemeler
     ```
 
 Go'nun mottosu olan *"Simple, Reliable, Efficient"* (Basit, Güvenilir, Verimli) prensibini her komutta hissedeceksiniz. Kurulum esnasında bir sorun yaşarsanız, Go'nun dokümantasyonu dünyadaki en temiz kaynaklardan biridir.
+
+---
+
+## ⚔️ Go vs Diğer Diller: Neden Go Tercih Ediyoruz?
+
+Go'nun teknoloji dünyasında yarattığı devasayı sarsıntıyı anlamak için, onu rakip dillerle kıyaslamak şarttır. Go, sadece bir programlama dili değil, aynı zamanda mühendislik problemlerine karşı alınmış **radikal bir duruştur**:
+
+- ⚡ **Go vs. Python:** Python harika bir prototipleme dilidir ancak yorumlanan (interpreted) bir dil olduğu için hız ve eşzamanlılık konusunda üretim ortamında (production) ciddi darboğazlar yaşatır (Global Interpreter Lock problemi). Go ise makine koduna doğrudan derlenen yapısı sayesinde Python'dan aritmetik olarak ortalama **40 kat daha hızlıdır** ve doğuştan (native) eşzamanlı çalışacak şekilde tasarlanmıştır. Sunucu verimini sömürmez. 
+- ☕ **Go vs. Java:** Java'nın hantal "JVM" mimarisi, devasa bellek tüketimi (memory footprint) ve bitmek bilmeyen *Garbage Collection* duraklamaları ünlüdür. Go ise yalındır; mikrosaniyeler içinde (cold start olmaksızın) ayağa kalkar, 10-15 MB RAM tüketimi ile arka planda mucizeler yaratır. Spring Boot'un GB'larca RAM tükettiği senaryoları Go minimal bir ayak iziyle paramparça eder!
+- 🌐 **Go vs. Node.js (JavaScript):** Node.js single-threaded yapısıyla (Event Loop) I/O işlemlerinde popüler olsa da matematiksel yoğun CPU hesaplamalarında felç olur. Go'da ise on binlerce *Goroutine*'i aynı anda ateşleyebilirsiniz; hepsi bağımsız thread'ler halinde akıp gider, sistem tıkanmaz. Event Loop darboğazını tarihe gömer.
+- 🦀 **Go vs. Rust & C++:** C++ ve Rust performansın zirvesidir ancak öğrenme eğrileri korkunçtur. Pointer yönetimi, *borrow checker* ve manuel hafıza tahsisleri yazılımcının tüm enerjisini emer. Go, neredeyse C++ hızında çalışırken bir o kadar da **Python kolaylığında** yazılır. Sınıfının en iyi çöp toplayıcısına (GC) sahiptir. Performans ve geliştirici dostu olma (Developer Experience) arasındaki en estetik "altın orandır."
+
+Kısacası Go; **"Bana C'nin saf gücünü, Python'un pratik yazım kolaylığını ve Erlang'in dağınık eşzamanlılığını tek bir potada ver"** diyenlerin dilidir! Altyapı sunucu maliyetlerinizi (Sunucu/AWS faturası) rahatlıkla yarı yarıya düşürür ve mikroservis döneminin tartışmasız kralı olur.
 
 ---
 

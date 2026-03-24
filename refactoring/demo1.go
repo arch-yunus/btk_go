@@ -20,13 +20,16 @@ type Category struct {
 	CatagoryName string `json:"categoryName"`
 }
 
-func GetAllProducts([]Product, error) {
+func GetAllProducts() ([]Product, error) {
 	response, err := http.Get("http://localhost:3000/products")
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
 	defer response.Body.Close()
 	bodyBytes, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
 
 	var products []Product
 	json.Unmarshal(bodyBytes, &products)
@@ -39,7 +42,7 @@ func AddProduct() (Product, error) {
 	jsonProduct, err := json.Marshal(product)
 	if err != nil {
 		fmt.Println("JSON'e dönüştürme hatası:", err)
-		return
+		return Product{}, err
 	}
 
 	response, err := http.Post("http://localhost:3000/products",

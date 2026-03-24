@@ -23,9 +23,14 @@ func GetAllProducts() {
 	response, err := http.Get("http://localhost:3000/products")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	defer response.Body.Close()
 	bodyBytes, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	var products []Product
 	json.Unmarshal(bodyBytes, &products)
@@ -42,6 +47,7 @@ func AddProduct() {
 		"application/json;charset=utf-8", bytes.NewBuffer(jsonProduct))
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	defer response.Body.Close()
 	bodyBytes, _ := ioutil.ReadAll(response.Body)
