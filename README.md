@@ -2,6 +2,8 @@
 
 ![Go Course Banner](./banner.png)
 
+[![Go CI](https://github.com/arch-yunus/btk_go/actions/workflows/go.yml/badge.svg)](https://github.com/arch-yunus/btk_go/actions/workflows/go.yml)
+
 Merhaba değerli geliştirici dostum! Bu depo, Türkiye'nin dijital dönüşüm hamlesinin en önemli taşlarından biri olan [BTK Akademi](https://www.btkakademi.gov.tr/portal/course/go-ile-programlamaya-giris-12760) platformu üzerinden başarıyla tamamladığım **"Go ile Programlamaya Giriş"** kursu kapsamında ilmek ilmek işlediğim projeleri, deneysel çalışmaları ve yapısal örnekleri barındıran kapsamlı bir dijital kütüphanedir. "Go neymiş ya?" diye merak ediyorsan, doğru yerdesin. Bu repo; sadeliğin gücünü, hızın zarafetini ve modern sistem programlamanın en sah halini keşfetmek isteyenler için bir başucu kaynağı niteliği taşır.
 
 Bu çalışma; sadece sözdizimi (syntax) öğrenmenin ötesine geçerek, bir dilin felsefesini kavramayı, bellek yönetimini optimize etmeyi ve yüksek performanslı sistemler inşa etmeyi hedefleyen bir disiplinin ürünüdür. İster Go diline yeni başlayan bir meraklı ol, ister "Ben ne yazsam da kendimi geliştirsem?" diyen bir profesyonel; buradaki her satır kod, bir problem-çözüm döngüsünün ve pedagojik bir yaklaşımın sonucudur. Kodları incele, değiştir, boz ve yeniden inşa et; zira gerçek öğrenme ancak "terminalin başında ter dökerek" gerçekleşir.
@@ -56,6 +58,7 @@ Her klasör, belirli bir mühendislik problemini çözmek veya bir dil özelliğ
 ├── 05-Struct-Interface/        # Veri modelleme ve polimorfizm (arayüz tabanlı tasarım)
 ├── 06-GoRoutines-Channels/     # Paralel işlem dünyasına giriş, senkronizasyon sanatı
 ├── 07-Web-Uygulamalari/        # HTTP protokolü, RESTful API tasarımı ve sunucu mimarisi
+├── 08-testing-fundamentals/    # Unit & Benchmark testleri, TDD yaklaşımı
 └── README.md                   # Projenin merkezi bilgi ve vizyon deposu
 ```
 
