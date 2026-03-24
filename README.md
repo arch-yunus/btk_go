@@ -59,6 +59,9 @@ Her klasör, belirli bir mühendislik problemini çözmek veya bir dil özelliğ
 ├── 06-GoRoutines-Channels/     # Paralel işlem dünyasına giriş, senkronizasyon sanatı
 ├── 07-Web-Uygulamalari/        # HTTP protokolü, RESTful API tasarımı ve sunucu mimarisi
 ├── 08-testing-fundamentals/    # Unit & Benchmark testleri, TDD yaklaşımı
+├── 09-advanced-concurrency/    # Worker Pool, Fan-in/Fan-out desenleri
+├── 10-database-fundamentals/   # Repository Pattern ve Mock DB simülasyonu
+├── cmd/                        # Uygulamanın giriş noktaları (Standard Go Layout)
 └── README.md                   # Projenin merkezi bilgi ve vizyon deposu
 ```
 
